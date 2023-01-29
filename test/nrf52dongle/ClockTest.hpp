@@ -1,13 +1,13 @@
 #pragma once
 
+#include <coco/platform/Loop_RTC0.hpp>
 #include <coco/platform/Clock_RTC0.hpp>
 
 
-namespace board {
+using namespace coco;
 
-// test configuraton for Clock
-struct ClockTest {
-	coco::Clock_RTC0 clock;
+// drivers for ClockTest
+struct Drivers {
+	Loop_RTC0 loop;
+	Clock_RTC0 clock{loop};
 };
-
-}

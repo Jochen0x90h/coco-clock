@@ -4,13 +4,13 @@
 
 namespace coco {
 
-Clock_TIM2::Clock_TIM2() {
+Clock_TIM2::Clock_TIM2(Loop_TIM2 &loop) {
 	// use channel 2 of RTC0
 	TIM2->CCR3 = TIM2->CNT + 1000;
 	TIM2->DIER = TIM2->DIER | TIM_DIER_CC3IE; // interrupt enable
 
 	// add to list of handlers
-	coco::handlers.add(*this);
+	loop.handlers.add(*this);
 }
 
 Clock_TIM2::~Clock_TIM2() {

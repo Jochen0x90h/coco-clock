@@ -4,13 +4,13 @@
 
 namespace coco {
 
-Clock_RTC0::Clock_RTC0() {
+Clock_RTC0::Clock_RTC0(Loop_RTC0 &loop) {
 	// use channel 2 of RTC0
 	NRF_RTC0->CC[2] = (NRF_RTC0->COUNTER + 16384 + 256) & ~16383;
 	NRF_RTC0->INTENSET = N(RTC_INTENSET_COMPARE2, Set);
 
 	// add to list of handlers
-	coco::handlers.add(*this);
+	loop.handlers.add(*this);
 }
 
 Clock_RTC0::~Clock_RTC0() {
