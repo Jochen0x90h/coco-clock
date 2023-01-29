@@ -1,5 +1,5 @@
 #include <coco/Clock.hpp>
-#include <coco/platform/Handler.hpp>
+#include <coco/platform/Loop_native.hpp>
 
 
 namespace coco {
@@ -10,16 +10,15 @@ namespace coco {
 class Clock_chrono : public Clock, public TimeHandler {
 public:
 
-	Clock_chrono();
+	Clock_chrono(Loop_native &loop);
 	~Clock_chrono() override;
 
 	WeekTime now() override;
 	void set(WeekTime now) override;
 	[[nodiscard]] Awaitable<> secondTick() override;
 
-	void activate();
-
 protected:
+	void handle();
 
 	// waiting coroutines
 	Waitlist<> waitlist;

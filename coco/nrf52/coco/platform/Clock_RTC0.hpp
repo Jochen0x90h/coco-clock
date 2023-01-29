@@ -1,7 +1,7 @@
 #pragma once
 
 #include <coco/Clock.hpp>
-#include <coco/platform/Handler.hpp>
+#include <coco/platform/Loop_RTC0.hpp>
 
 
 namespace coco {
@@ -16,7 +16,7 @@ namespace coco {
 class Clock_RTC0 : public Clock, public Handler {
 public:
 
-	Clock_RTC0();
+	Clock_RTC0(Loop_RTC0 &loop);
 	~Clock_RTC0() override;
 
 	WeekTime now() override;

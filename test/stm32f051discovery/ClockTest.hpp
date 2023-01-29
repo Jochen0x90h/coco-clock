@@ -1,13 +1,13 @@
 #pragma once
 
+#include <coco/platform/Loop_TIM2.hpp>
 #include <coco/platform/Clock_TIM2.hpp>
 
 
-namespace board {
+using namespace coco;
 
-// test configuraton for Clock
-struct ClockTest {
-	coco::Clock_TIM2 clock;
+// drivers for ClockTest
+struct Drivers {
+	Loop_TIM2 loop;
+	Clock_TIM2 clock{loop};
 };
-
-}

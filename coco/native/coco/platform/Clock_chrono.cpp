@@ -1,13 +1,12 @@
 #include "Clock_chrono.hpp"
-#include <coco/loop.hpp>
 #include <chrono>
 
 
 namespace coco {
 
-Clock_chrono::Clock_chrono() {
-	this->time = loop::now() + 1s;
-	coco::timeHandlers.add(*this);
+Clock_chrono::Clock_chrono(Loop_native &loop) {
+	this->time = loop.now() + 1s;
+	loop.timeHandlers.add(*this);
 }
 
 Clock_chrono::~Clock_chrono() {	
@@ -32,7 +31,7 @@ Awaitable<> Clock_chrono::secondTick() {
 	return {this->waitlist};
 }
 
-void Clock_chrono::activate() {
+void Clock_chrono::handle() {
 	// next activation in 1s
 	this->time += 1s;
 

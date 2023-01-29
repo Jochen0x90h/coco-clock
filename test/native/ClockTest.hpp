@@ -3,11 +3,10 @@
 #include <coco/platform/Clock_chrono.hpp>
 
 
-namespace board {
+using namespace coco;
 
-// test configuraton for Clock
-struct ClockTest {
-	coco::Clock_chrono clock;
+// drivers for ClockTest
+struct Drivers {
+	Loop_native loop;
+	Clock_chrono clock{loop};
 };
-
-}

@@ -27,9 +27,9 @@ Coroutine test(Clock &clock) {
 
 int main() {
 	debug::init();
-	board::ClockTest drivers;
+	Drivers drivers;
 
 	test(drivers.clock);
 	
-	loop::run();
+	drivers.loop.run();
 }
