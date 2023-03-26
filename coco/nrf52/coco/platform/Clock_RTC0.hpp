@@ -8,12 +8,12 @@ namespace coco {
 
 /**
  * Implementation of the Clock interface using RTC0
- * 
+ *
  * Resources:
  *	NRF_RTC0
  *		CC[2]
  */
-class Clock_RTC0 : public Clock, public Handler {
+class Clock_RTC0 : public Clock, public Loop_RTC0::Handler {
 public:
 
 	Clock_RTC0(Loop_RTC0 &loop);
@@ -33,7 +33,7 @@ protected:
 	uint8_t weekday = 0;
 
 	// waiting coroutines
-	Waitlist<> waitlist;
+	TaskList<> tasks;
 };
 
 } // namespace coco

@@ -28,7 +28,7 @@ void Clock_RTC0::set(WeekTime now) {
 }
 
 [[nodiscard]] Awaitable<> Clock_RTC0::secondTick() {
-	return {this->waitlist};
+	return {this->tasks};
 }
 
 void Clock_RTC0::handle() {
@@ -56,7 +56,7 @@ void Clock_RTC0::handle() {
 		clearInterrupt(RTC0_IRQn);
 
 		// resume all waiting coroutines
-		this->waitlist.resumeAll();
+		this->tasks.resumeAll();
 	}
 }
 
