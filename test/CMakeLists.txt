@@ -13,7 +13,7 @@ endmacro()
 # generate ClockTest for every board
 foreach(COMPONENT ${coco-devboards_COMPONENT_NAMES})
 	string(REGEX REPLACE ".*\\:" "" BOARD ${COMPONENT})
-	message("*** Boad: ${BOARD}")
+	message("*** Board: ${BOARD}")
 	if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${BOARD}/ClockTest.hpp)
 		set(NAME "ClockTest-${BOARD}")
 		add_executable(${NAME}

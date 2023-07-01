@@ -9,7 +9,7 @@ Clock_chrono::Clock_chrono(Loop_native &loop) {
 	loop.timeHandlers.add(*this);
 }
 
-Clock_chrono::~Clock_chrono() {	
+Clock_chrono::~Clock_chrono() {
 }
 
 WeekTime Clock_chrono::now() {
@@ -28,7 +28,7 @@ void Clock_chrono::set(WeekTime now) {
 }
 
 Awaitable<> Clock_chrono::secondTick() {
-	return {this->waitlist};
+	return {this->tasks};
 }
 
 void Clock_chrono::handle() {
@@ -36,7 +36,7 @@ void Clock_chrono::handle() {
 	this->time += 1s;
 
 	// resume all waiting coroutines
-	this->waitlist.resumeAll();
+	this->tasks.resumeAll();
 }
 
 } // namespace coco

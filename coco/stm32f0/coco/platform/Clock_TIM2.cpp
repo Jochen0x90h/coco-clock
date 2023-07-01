@@ -28,7 +28,7 @@ WeekTime Clock_TIM2::now() {
 }
 
 [[nodiscard]] Awaitable<> Clock_TIM2::secondTick() {
-	return {this->waitlist};
+	return {this->tasks};
 }
 
 void Clock_TIM2::handle() {
@@ -56,7 +56,7 @@ void Clock_TIM2::handle() {
 		clearInterrupt(TIM2_IRQn);
 
 		// resume all waiting coroutines
-		this->waitlist.resumeAll();
+		this->tasks.resumeAll();
 	}
 }
 
