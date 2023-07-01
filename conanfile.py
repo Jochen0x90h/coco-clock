@@ -6,7 +6,6 @@ from conan.tools.cmake import CMake
 class Project(ConanFile):
     name = "coco-clock"
     description = "Wall clock module for CoCo"
-    url = "https://github.com/Jochen0x90h/coco-clock"
     license = "MIT"
     settings = "os", "compiler", "build_type", "arch"
     options = {
@@ -28,12 +27,15 @@ class Project(ConanFile):
 
     def build_requirements(self):
         self.test_requires("coco-devboards/0.4.0")
+        if not self.cross():
+            # platform is based on a "normal" operating system such as Windows, MacOS, Linux
+            self.test_requires("gtest/1.12.1")
 
     def configure(self):
         # pass platform option to dependencies
-        self.options["coco-toolchain"].platform = self.options.platform
         self.options["coco"].platform = self.options.platform
         self.options["coco-loop"].platform = self.options.platform
+        self.options["coco-toolchain"].platform = self.options.platform
         self.options["coco-devboards"].platform = self.options.platform
 
     keep_imports = True
