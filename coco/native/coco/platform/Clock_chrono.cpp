@@ -4,9 +4,11 @@
 
 namespace coco {
 
-Clock_chrono::Clock_chrono(Loop_native &loop) {
-	this->time = loop.now() + 1s;
-	loop.timeHandlers.add(*this);
+Clock_chrono::Clock_chrono(Loop_native &loop)
+	: loop(loop)
+	, callback(makeCallback<Clock_chrono, &Clock_chrono::handle>(this))
+{
+	loop.invoke(this->callback, this->time = loop.now() + 1s);
 }
 
 Clock_chrono::~Clock_chrono() {
@@ -33,10 +35,10 @@ Awaitable<> Clock_chrono::secondTick() {
 
 void Clock_chrono::handle() {
 	// next activation in 1s
-	this->time += 1s;
+	this->loop.invoke(this->callback, this->time += 1s);
 
 	// resume all waiting coroutines
-	this->tasks.resumeAll();
+	this->tasks.doAll();
 }
 
 } // namespace coco
