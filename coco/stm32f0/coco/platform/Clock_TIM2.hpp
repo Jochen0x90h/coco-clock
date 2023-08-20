@@ -33,7 +33,7 @@ protected:
 	uint8_t weekday = 0;
 
 	// waiting coroutines
-	TaskList<> tasks;
+	CoroutineTaskList<> tasks;
 };
 
 } // namespace coco

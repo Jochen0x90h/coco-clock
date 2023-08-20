@@ -7,7 +7,7 @@ namespace coco {
 /**
  * Implementation of the Clock interface using std::chrono
 */
-class Clock_chrono : public Clock, public Loop_native::TimeHandler {
+class Clock_chrono : public Clock {
 public:
 
 	Clock_chrono(Loop_native &loop);
@@ -20,8 +20,13 @@ public:
 protected:
 	void handle();
 
+	Loop_native &loop;
+	TimedTask<Callback> callback;
+
+	Time time;
+
 	// waiting coroutines
-	TaskList<> tasks;
+	CoroutineTaskList<> tasks;
 };
 
 } // namespace coco

@@ -1,11 +1,11 @@
 #include "Clock_RTC0.hpp"
-#include <coco/platform/platform.hpp>
+#include <coco/platform/nvic.hpp>
 
 
 namespace coco {
 
 Clock_RTC0::Clock_RTC0(Loop_RTC0 &loop) {
-	// use channel 2 of RTC0
+	// use capture/compare 2 of RTC0
 	NRF_RTC0->CC[2] = (NRF_RTC0->COUNTER + 16384 + 256) & ~16383;
 	NRF_RTC0->INTENSET = N(RTC_INTENSET_COMPARE2, Set);
 
@@ -53,10 +53,10 @@ void Clock_RTC0::handle() {
 
 		// clear pending interrupt flags at peripheral and NVIC
 		NRF_RTC0->EVENTS_COMPARE[2] = 0;
-		clearInterrupt(RTC0_IRQn);
+		nvic::clear(RTC0_IRQn);
 
 		// resume all waiting coroutines
-		this->tasks.resumeAll();
+		this->tasks.doAll();
 	}
 }
 

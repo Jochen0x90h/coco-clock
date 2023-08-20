@@ -15,9 +15,9 @@ class Project(ConanFile):
     generators = "CMakeDeps", "CMakeToolchain"
     exports_sources = "conanfile.py", "CMakeLists.txt", "coco/*", "test/*"
     requires = [
-        "coco-loop/0.4.0"
+        "coco-loop/0.5.0"
     ]
-    tool_requires = "coco-toolchain/0.1.0"
+    tool_requires = "coco-toolchain/0.2.0"
 
     # check if we are cross compiling
     def cross(self):
@@ -26,7 +26,7 @@ class Project(ConanFile):
         return False
 
     def build_requirements(self):
-        self.test_requires("coco-devboards/0.4.0")
+        self.test_requires("coco-devboards/0.5.0")
         if not self.cross():
             # platform is based on a "normal" operating system such as Windows, MacOS, Linux
             self.test_requires("gtest/1.12.1")
