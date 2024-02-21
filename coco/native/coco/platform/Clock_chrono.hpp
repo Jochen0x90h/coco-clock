@@ -23,7 +23,7 @@ protected:
 	Loop_native &loop;
 	TimedTask<Callback> callback;
 
-	Time time;
+	TimeMilliseconds<> time;
 
 	// waiting coroutines
 	CoroutineTaskList<> tasks;
