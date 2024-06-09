@@ -8,6 +8,8 @@ using namespace coco;
 
 // drivers for ClockTest
 struct Drivers {
-	Loop_emu loop;
-	Clock_chrono clock{loop};
+    Loop_emu loop;
+    Clock_chrono clock{loop};
 };
+
+Drivers drivers;

@@ -37,10 +37,10 @@ add_subdirectory(coco)
 
 # check if we are on a "normal" operating system such as Windows or Linux
 if(NOT ${CMAKE_CROSSCOMPILING})
-	find_package(GTest CONFIG)
+    find_package(GTest CONFIG)
 
-	# enable testing, adds test or RUN_TESTS target to run all tests
-	enable_testing()
+    # enable testing, adds test or RUN_TESTS target to run all tests
+    enable_testing()
 endif()
 
 # test executables
