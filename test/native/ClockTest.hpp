@@ -7,6 +7,8 @@ using namespace coco;
 
 // drivers for ClockTest
 struct Drivers {
-	Loop_native loop;
-	Clock_chrono clock{loop};
+    Loop_native loop;
+    Clock_chrono clock{loop};
 };
+
+Drivers drivers;

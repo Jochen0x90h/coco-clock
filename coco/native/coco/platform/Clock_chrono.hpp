@@ -10,23 +10,23 @@ namespace coco {
 class Clock_chrono : public Clock {
 public:
 
-	Clock_chrono(Loop_native &loop);
-	~Clock_chrono() override;
+    Clock_chrono(Loop_native &loop);
+    ~Clock_chrono() override;
 
-	WeekTime now() override;
-	void set(WeekTime now) override;
-	[[nodiscard]] Awaitable<> secondTick() override;
+    WeekTime now() override;
+    void set(WeekTime now) override;
+    [[nodiscard]] Awaitable<> secondTick() override;
 
 protected:
-	void handle();
+    void handle();
 
-	Loop_native &loop;
-	TimedTask<Callback> callback;
+    Loop_native &loop;
+    TimedTask<Callback> callback;
 
-	Time time;
+    TimeMilliseconds<> time;
 
-	// waiting coroutines
-	CoroutineTaskList<> tasks;
+    // waiting coroutines
+    CoroutineTaskList<> tasks;
 };
 
 } // namespace coco
