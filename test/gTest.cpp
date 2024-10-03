@@ -21,9 +21,9 @@ TEST(cocoClockTest, ClockTime) {
 // ---------
 
 TEST(cocoClockTest, AlarmTime) {
-    WeekTime t(0, 10, 50, 37); // monday
-    AlarmTime a1(1, 10, 50, 37);
-    AlarmTime a2(2, 10, 50, 37);
+    WeekTime t(WeekTime::MONDAY, 10, 50, 37); // monday
+    AlarmTime a1(AlarmTime::MONDAY, 10, 50, 37);
+    AlarmTime a2(AlarmTime::TUESDAY | AlarmTime::WEDNESDAY, 10, 50, 37);
 
     EXPECT_TRUE(a1.matches(t));
     EXPECT_FALSE(a2.matches(t));

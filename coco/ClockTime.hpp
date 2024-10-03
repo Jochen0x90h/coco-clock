@@ -1,13 +1,13 @@
 #pragma once
 
 #include <cstdint>
+#include <coco/enum.hpp>
 
 
 namespace coco {
 
-/**
- * Wall clock time
- */
+/// @brief Wall clock time
+///
 class ClockTime {
 public:
     static constexpr uint32_t SECONDS_MASK = 0x0000003f;
@@ -93,13 +93,23 @@ public:
     uint32_t time = 0;
 };
 
-/**
- * Wall clock time incliding week day
- */
+
+/// @brief Wall clock time incliding week day
+///
 class WeekTime : public ClockTime {
 public:
     static constexpr uint32_t WEEKDAY_MASK = 0x07000000;
     static constexpr int WEEKDAY_SHIFT = 24;
+
+    enum Weekday {
+        MONDAY = 0,
+        TUESDAY = 1,
+        WEDNESDAY = 2,
+        THURSDAY = 3,
+        FRIDAY = 4,
+        SATURDAY = 5,
+        SUNDAY = 6
+    };
 
     WeekTime() = default;
 
@@ -108,8 +118,7 @@ public:
             | minutes << WeekTime::MINUTES_SHIFT
             | hours << WeekTime::HOURS_SHIFT
             | weekday << WeekTime::WEEKDAY_SHIFT)
-    {
-    }
+    {}
 
     /**
      * Get weekday: 0 (Monday) to 6 (Sunday)
@@ -117,16 +126,29 @@ public:
     int getWeekday() const {return this->time >> WEEKDAY_SHIFT;}
 
     /**
-     * Set weekday flags
-     * @param weekdays weekday flags, 0: Monday, 6: Sunday
+     * Set weekday
+     * @param weekdays weekday: 0 (Monday) to 6 (Sunday)
      */
     void setWeekday(int weekday) {this->time = (this->time & ~WEEKDAY_MASK) | (weekday << WEEKDAY_SHIFT);}
 };
 
+
+/// @brief Wall clock time incliding a set of week days
+///
 class AlarmTime : public ClockTime {
 public:
     static constexpr uint32_t WEEKDAYS_MASK = 0x7f000000; // weekday flags
     static constexpr int WEEKDAYS_SHIFT = 24;
+
+    enum Weekdays {
+        MONDAY = 1,
+        TUESDAY = 2,
+        WEDNESDAY = 4,
+        THURSDAY = 8,
+        FRIDAY = 16,
+        SATURDAY = 32,
+        SUNDAY = 64
+    };
 
     /**
      * Constructor. All weekday flags are on by default
@@ -138,25 +160,24 @@ public:
             | minutes << AlarmTime::MINUTES_SHIFT
             | hours << AlarmTime::HOURS_SHIFT
             | weekdays << AlarmTime::WEEKDAYS_SHIFT)
-    {
-    }
+    {}
 
     /**
-     * Get weekday flags, 0: Monday, 6: Sunday
+     * Get weekday flags
      */
     int getWeekdays() const {return this->time >> WEEKDAYS_SHIFT;}
 
 
     /**
      * Set weekday flags
-     * @param weekdays weekday flags, 0: Monday, 6: Sunday
+     * @param weekdays weekday flags
      */
     void setWeekdays(int weekdays) {this->time = (this->time & ~WEEKDAYS_MASK) | (weekdays << WEEKDAYS_SHIFT);}
 
     /**
-     * Check if the alarm time matches a clock time, i.e. if the alarm went off
-     * @param time clock time
-     * @return true when alarm should to off
+     * Check if the alarm time matches a clock time with week day, i.e. if the alarm goes off
+     * @param time clock time with week day
+     * @return true when alarm should go off
      */
     bool matches(WeekTime time) const {
         // check seconds, minutes and hours
