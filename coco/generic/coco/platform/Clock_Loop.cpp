@@ -30,7 +30,10 @@ WeekTime Clock_Loop::now() {
 }
 
 Coroutine Clock_Loop::update() {
+    // get current time
     auto time = this->loop.now();
+
+    // update time in infinite loop
     while (true) {
         // increment time and sleep
         co_await this->loop.sleep(time += 1s);
