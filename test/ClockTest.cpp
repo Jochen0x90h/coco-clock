@@ -14,9 +14,11 @@ Coroutine test(Clock &clock) {
         // get time
         auto time = clock.now();
 
+#ifndef NATIVE
         // toggle LEDs
         s ^= 1 | ((time.getMinutes() & 1) << 1) | ((time.getHours() & 1) << 2);
         debug::set(s);
+#endif
 
         const char *weekdays[] = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         debug::out << weekdays[int(time.getWeekday())]
@@ -27,6 +29,8 @@ Coroutine test(Clock &clock) {
 }
 
 int main() {
+    debug::out << "ClockTest\n";
+
     test(drivers.clock);
 
     drivers.loop.run();

@@ -37,7 +37,7 @@ void Clock_chrono::handle() {
     // next activation in 1s
     this->loop.invoke(this->callback, this->time += 1s);
 
-    // resume all waiting coroutines
+    // resume all coroutines waiting on secondTick()
     this->tasks.doAll();
 }
 

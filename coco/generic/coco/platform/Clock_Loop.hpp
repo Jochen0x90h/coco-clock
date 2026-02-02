@@ -6,15 +6,12 @@
 
 namespace coco {
 
-/**
- * Implementation of the Clock interface using the event loop
- */
+/// @brief Implementation of the Clock interface using the event loop
+///
 class Clock_Loop : public Clock {
 public:
-    /**
-     * Constructor
-     * @param loop event loop
-     */
+    /// @brief Constructor
+    /// @param loop event loop
     Clock_Loop(Loop &loop);
 
     ~Clock_Loop() override;
