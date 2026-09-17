@@ -4,10 +4,9 @@
 
 namespace coco {
 
-/**
- * Implementation of the Clock interface using std::chrono
-*/
-class Clock_chrono : public Clock {
+/// @brief Implementation of the Clock interface using std::chrono
+///
+class Clock_chrono : public Clock, public Loop_native::TimeoutHandler {
 public:
 
     Clock_chrono(Loop_native &loop);
@@ -15,18 +14,17 @@ public:
 
     WeekTime now() override;
     void set(WeekTime now) override;
-    [[nodiscard]] Awaitable<> secondTick() override;
+    [[nodiscard]] Awaitable<CoroutineTask<>> secondTick() override;
 
 protected:
-    void handle();
+    void onTimeout() override;
 
-    Loop_native &loop;
-    TimedTask<Callback> callback;
+    Loop_native &loop_;
 
-    TimeMilliseconds<> time;
+    TimeMilliseconds<> time_;
 
     // waiting coroutines
-    CoroutineTaskList<> tasks;
+    CoroutineTaskList<> tasks_;
 };
 
 } // namespace coco

@@ -23,7 +23,7 @@ public:
 
     /// @brief Suspend execution using co_await until next second tick
     ///
-    [[nodiscard]] virtual Awaitable<> secondTick() = 0;
+    [[nodiscard]] virtual Awaitable<CoroutineTask<>> secondTick() = 0;
 };
 
 } // namespace coco

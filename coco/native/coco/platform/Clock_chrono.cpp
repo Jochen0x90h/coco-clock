@@ -5,10 +5,9 @@
 namespace coco {
 
 Clock_chrono::Clock_chrono(Loop_native &loop)
-    : loop(loop)
-    , callback(makeCallback<Clock_chrono, &Clock_chrono::handle>(this))
+    : loop_(loop)
 {
-    loop.invoke(this->callback, this->time = loop.now() + 1s);
+    loop.invoke(*this, time_ = loop.now() + 1s);
 }
 
 Clock_chrono::~Clock_chrono() {
@@ -29,16 +28,16 @@ void Clock_chrono::set(WeekTime now) {
     // not supported
 }
 
-Awaitable<> Clock_chrono::secondTick() {
-    return {this->tasks};
+Awaitable<CoroutineTask<>> Clock_chrono::secondTick() {
+    return {this->tasks_};
 }
 
-void Clock_chrono::handle() {
+void Clock_chrono::onTimeout() {
     // next activation in 1s
-    this->loop.invoke(this->callback, this->time += 1s);
+    loop_.invoke(*this, time_ += 1s);
 
     // resume all coroutines waiting on secondTick()
-    this->tasks.doAll();
+    tasks_.doAll();
 }
 
 } // namespace coco

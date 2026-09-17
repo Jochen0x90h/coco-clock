@@ -25,7 +25,7 @@ WeekTime Clock_Loop::now() {
     return time;
 }
 
-[[nodiscard]] Awaitable<> Clock_Loop::secondTick() {
+[[nodiscard]] Awaitable<CoroutineTask<>> Clock_Loop::secondTick() {
     return {this->tasks};
 }
 

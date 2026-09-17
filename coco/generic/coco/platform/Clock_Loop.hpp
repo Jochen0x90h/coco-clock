@@ -18,7 +18,7 @@ public:
 
     WeekTime now() override;
     void set(WeekTime time) override;
-    [[nodiscard]] Awaitable<> secondTick() override;
+    [[nodiscard]] Awaitable<CoroutineTask<>> secondTick() override;
 
 protected:
     // gets called from the event loop to update the clock and notify the main application
