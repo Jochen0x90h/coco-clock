@@ -3,7 +3,7 @@
 Wall clock module for CoCo
 
 ## Import
-Add coco-clock/\<version> to your conanfile where version corresponds to the git tags
+Add coco-clock/\<version> to your conanfile where version corresponds to a git tag.
 
 ## Features
 * Wall clock with week day
